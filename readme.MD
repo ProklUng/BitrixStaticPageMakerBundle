@@ -49,7 +49,7 @@ simple_static_page:
     
    Препроцессоры, уже имеющиеся в пакете:
    
-    - SeoContextProcessor - установка title & description из мета-свойств элементов инфоблока.
+    - **SeoContextProcessor** - установка title & description из мета-свойств элементов инфоблока.
        ID (отдельного) инфоблока задается на уровне конфигурации бандла. Ключ в конфиге - seo_iblock_id.
        По умолчанию равен null. 
        
@@ -66,7 +66,7 @@ simple_static_page:
         
        Препроцессор пускается автоматически, если в конфиге бандла задан ID SEO инфоблока.
     
-    - BreadcrumbsContextProcessor. Хлебные крошки.
+    - **BreadcrumbsContextProcessor**. Хлебные крошки.
     
        Предполагается, что битриксовый компонент подключается в шапке. Но не обязательно, вполне сработает конструкция
         `{{ showComponent('bitrix:breadcrumbs', '') }}`  
@@ -74,7 +74,9 @@ simple_static_page:
        Этот препроцессор пускается последним. В качестве url использует адрес роута, а описание берет из поля title контекста. 
 
 2) При установке опции set_last_modified_header равной true в конфигурации бандла (local/configs/packages/static_page_maker.yaml)
-   будут установлены заголовки LastModified.  
+   будут установлены заголовки LastModified. 
+   
+   Пример конфига модуля лежит по адресу Examples/static_page_maker.yaml относительно корня бандла. 
  
 3) В Твиг добавлены две кастомные функции: header и footer, отвечающие за вывод битриксовой шапки и футера. 
 
