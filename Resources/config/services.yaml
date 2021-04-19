@@ -1,0 +1,76 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  static_page_maker.cblockelement:
+    public: false
+    class: CIBlockElement
+
+  # Экземпляр Twig.
+  static_page_maker.twig_instance:
+    public: false
+    class: Twig_Environment
+    factory: ['@twig', 'instance']
+
+  static_page_maker.bitrix.pieces:
+    public: true
+    arguments: ['%kernel.project_dir%']
+    class: Prokl\StaticPageMakerBundle\Twig\BitrixPiecesExtension
+    tags:
+      - { name: twig.extension }
+
+  static_page_maker.assets.handler:
+    public: true
+    class: Prokl\StaticPageMakerBundle\Twig\AssetsExtension
+    tags:
+      - { name: twig.extension }
+
+  static_page_majer.bitrix.element_values_proxy:
+    public: false
+    class: Prokl\StaticPageMakerBundle\Services\Bitrix\ElementValuesProxy
+
+  static_page_maker.seo_properties_searcher:
+    public: false
+    class: Prokl\StaticPageMakerBundle\Services\Bitrix\SeoMetaElement
+    arguments:
+        - '@static_page_maker.cblockelement'
+        - '@static_page_majer.bitrix.element_values_proxy'
+        - '%static_page_maker.seo_iblock_id%'
+
+  Prokl\StaticPageMakerBundle\Services\TemplateControllerContainerAware:
+    public: true
+    arguments: ['@static_page_maker.default.context.processors', '@static_page_maker.twig_instance']
+    calls:
+      - setContainer: ['@service_container']
+
+  static_page_maker.default.context.processors:
+    public: false
+    class: Prokl\StaticPageMakerBundle\Services\ContextProcessors\DefaultContextProcessorsBag
+    calls:
+      - setProcessors: [ !tagged_iterator static_page_maker.default.context.processor]
+
+  Prokl\StaticPageMakerBundle\Services\ContextProcessors\SeoContextProcessor:
+    class: Prokl\StaticPageMakerBundle\Services\ContextProcessors\SeoContextProcessor
+    arguments: ['@static_page_maker.seo_properties_searcher']
+    tags:
+      - { name: static_page_maker.default.context.processor}
+
+  # Хлебные крошки
+  Prokl\StaticPageMakerBundle\Services\ContextProcessors\BreadcrumbsContextProcessor:
+    class: Prokl\StaticPageMakerBundle\Services\ContextProcessors\BreadcrumbsContextProcessor
+    tags:
+      - { name: static_page_maker.default.context.processor, priority: -500}
+
+  static_page_maker.twig_utils:
+    public: false
+    class: Prokl\StaticPageMakerBundle\Services\Utils\TwigUtils
+    arguments: ['@static_page_maker.twig_instance', '@filesystem']
+
+  static_page_maker.listener_set_last_modified:
+    public: true
+    class: Prokl\StaticPageMakerBundle\Event\SetLastModifiedHeaderListener
+    arguments: ['@static_page_maker.twig_utils', '%static_page_maker.set_last_modified_header%']
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 10 }
