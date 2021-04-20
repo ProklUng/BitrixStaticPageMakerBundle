@@ -25,7 +25,8 @@
     "require": {
         "php": ">=7.3",
         "psr/container": "^1.0",
-        "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
+        "symfony/dependency-injection": "^4.0 || ^5.0",
+        "symfony/http-kernel": "^4.0 || ^5.0",
         "maximaster/tools.twig": "^1.1"
     },
     "require-dev": {
