@@ -17,20 +17,17 @@
     "autoload": {
         "psr-4": {
             "Prokl\\StaticPageMakerBundle\\": ""
-        },
-        "exclude-from-classmap": [
-            "Tests/"
-        ]
+        }
     },
     "require": {
         "php": ">=7.3",
         "psr/container": "^1.0",
         "symfony/dependency-injection": "^4.0 || ^5.0",
         "symfony/http-kernel": "^4.0 || ^5.0",
-        "maximaster/tools.twig": "^1.1"
+        "twig/twig": "^1.41|^2.10"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5.2 || ^8.0 || ^9.0",
+        "proklung/phpunit-testing-tools": "^1.0",
         "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
         "mockery/mockery": "^1.4"
     }
