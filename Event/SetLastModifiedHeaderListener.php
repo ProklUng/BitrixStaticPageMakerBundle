@@ -59,7 +59,7 @@ final class SetLastModifiedHeaderListener
         }
 
         $response = $event->getResponse();
-        $template = $event->getRequest()->attributes->get('template');
+        $template = (string)$event->getRequest()->attributes->get('template', '');
 
         $timestamp = $this->twigUtils->getModifiedTimeTemplate($template);
         if ($timestamp === 0) {

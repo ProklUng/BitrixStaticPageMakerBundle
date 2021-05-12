@@ -4,7 +4,6 @@ namespace Prokl\StaticPageMakerBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Twig_ExtensionInterface;
 use Bitrix\Main\Page\Asset;
 
 /**
@@ -13,7 +12,7 @@ use Bitrix\Main\Page\Asset;
  *
  * @since 23.01.2021
  */
-class AssetsExtension extends AbstractExtension implements Twig_ExtensionInterface
+class AssetsExtension extends AbstractExtension
 {
     /**
      * Return extension name

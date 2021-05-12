@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    allowStringToStandInForClass="true"
+    allowCoercionFromStringToClassConst="true"
+    findUnusedPsalmSuppress="true"
+    skipChecksOnUnresolvableIncludes="true"
+>
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+        <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
+    </plugins>
+    <projectFiles>
+        <directory name="/"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="Tests"/>
+            <file name="DependencyInjection/Configuration.php"/>
+            <file name="StaticPageMakerBundle.php"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <file name="Twig/AssetsExtension.php"/>
+                <file name="Twig/BitrixPiecesExtension.php"/>
+                <file name="Services/ContextProcessors/BreadcrumbsContextProcessor.php"/>
+                <directory name="Services/Bitrix"/>
+            </errorLevel>
+        </UndefinedDocblockClass>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <file name="Twig/AssetsExtension.php"/>
+                <file name="Twig/BitrixPiecesExtension.php"/>
+                <file name="Services/ContextProcessors/BreadcrumbsContextProcessor.php"/>
+                <directory name="Services/Bitrix"/>
+            </errorLevel>
+        </UndefinedClass>
+        <UndefinedConstant>
+            <errorLevel type="suppress">
+                <file name="Twig/BitrixPiecesExtension.php"/>
+            </errorLevel>
+        </UndefinedConstant>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <MethodSignatureMismatch>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </MethodSignatureMismatch>
+        <MixedMethodCall>
+            <errorLevel type="suppress">
+                <file name="Twig/AssetsExtension.php"/>
+                <file name="Twig/BitrixPiecesExtension.php"/>
+                <file name="Services/ContextProcessors/BreadcrumbsContextProcessor.php"/>
+                <directory name="Services/Bitrix"/>
+            </errorLevel>
+        </MixedMethodCall>
+        <MixedReturnStatement>
+            <errorLevel type="suppress">
+                <directory name="Services/Bitrix"/>
+            </errorLevel>
+        </MixedReturnStatement>
+        <MixedInferredReturnType>
+            <errorLevel type="suppress">
+                <directory name="Services/Bitrix"/>
+            </errorLevel>
+        </MixedInferredReturnType>
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <directory name="Services/Bitrix"/>
+                <file name="Services/ContextProcessors/BreadcrumbsContextProcessor.php"/>
+            </errorLevel>
+        </MixedAssignment>
+    </issueHandlers>
+</psalm>

@@ -92,6 +92,7 @@ class TemplateControllerContainerAware extends TemplateController
                 continue;
             }
 
+            /** @var object|null $resolvedService */
             $resolvedService = $this->resolveFromContainer($item);
 
             if ($resolvedService !== null) {
@@ -117,7 +118,7 @@ class TemplateControllerContainerAware extends TemplateController
 
         $resolvedVariable = false;
 
-        if (strpos($argItem, '%') === 0) {
+        if (is_string($argItem) && strpos($argItem, '%') === 0) {
             $containerVar = str_replace('%', '', $argItem);
 
             // Есть такой параметр в контейнере - действуем.
@@ -125,7 +126,7 @@ class TemplateControllerContainerAware extends TemplateController
                 $resolvedVarValue = $this->container->getParameter($containerVar);
                 $resolvedVariable = true;
 
-                if ($this->container->has((string)$resolvedVarValue)) {
+                if (is_string($resolvedVarValue) && $this->container->has($resolvedVarValue)) {
                     $resolvedVarValue = '@' . $resolvedVarValue;
                 }
 
@@ -136,7 +137,7 @@ class TemplateControllerContainerAware extends TemplateController
         }
 
         // Если использован алиас сервиса, то попробовать получить его из контейнера.
-        if (strpos($argItem, '@') === 0) {
+        if (is_string($argItem) && strpos($argItem, '@') === 0) {
             $serviceId = ltrim($argItem, '@');
 
             $resolvedService = null;
@@ -146,6 +147,7 @@ class TemplateControllerContainerAware extends TemplateController
                     $serviceId
                 );
             } elseif (class_exists($serviceId)) {
+                /** @psalm-suppress MixedMethodCall */
                 $resolvedService = new $serviceId;
             }
 

@@ -41,6 +41,7 @@ class TwigUtils
         $this->twig = $twig;
         $this->filesystem = $filesystem;
 
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $this->paths = $this->twig->getLoader()->getPaths();
     }
 
@@ -53,6 +54,7 @@ class TwigUtils
      */
     public function getPathTemplate(string $template) : string
     {
+        /** @var string $path */
         foreach ($this->paths as $path) {
             if ($path && $this->filesystem->exists($path . '/' .$template)) {
                 return $path . '/' .$template;
