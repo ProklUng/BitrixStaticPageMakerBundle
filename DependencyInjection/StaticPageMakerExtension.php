@@ -8,6 +8,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Twig\Environment;
 use Twig_Environment;
 
 /**
@@ -58,7 +59,7 @@ final class StaticPageMakerExtension extends Extension
      */
     private function checkDependency() : void
     {
-        if (!class_exists(Twig_Environment::class)) {
+        if (!class_exists(Environment::class)) {
             throw new LogicException(
                 'StaticPageBundle work only with installed and configured Twig.'
             );

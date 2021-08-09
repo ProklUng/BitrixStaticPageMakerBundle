@@ -11,7 +11,7 @@ services:
   # Экземпляр Twig.
   static_page_maker.twig_instance:
     public: false
-    class: Twig_Environment
+    class: Twig\Environment
     factory: ['@twig', 'instance']
 
   static_page_maker.bitrix.pieces:
