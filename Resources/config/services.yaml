@@ -8,12 +8,6 @@ services:
     public: false
     class: CIBlockElement
 
-  # Экземпляр Twig.
-  static_page_maker.twig_instance:
-    public: false
-    class: Twig\Environment
-    factory: ['@twig', 'instance']
-
   static_page_maker.bitrix.pieces:
     public: true
     arguments: ['%kernel.project_dir%']
@@ -41,7 +35,7 @@ services:
 
   Prokl\StaticPageMakerBundle\Services\TemplateControllerContainerAware:
     public: true
-    arguments: ['@static_page_maker.default.context.processors', '@static_page_maker.twig_instance']
+    arguments: ['@static_page_maker.default.context.processors', '@twig']
     calls:
       - setContainer: ['@service_container']
 
@@ -66,7 +60,7 @@ services:
   static_page_maker.twig_utils:
     public: false
     class: Prokl\StaticPageMakerBundle\Services\Utils\TwigUtils
-    arguments: ['@static_page_maker.twig_instance', '@filesystem']
+    arguments: ['@twig', '@filesystem']
 
   static_page_maker.listener_set_last_modified:
     public: true
