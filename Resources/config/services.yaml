@@ -51,6 +51,12 @@ services:
     tags:
       - { name: static_page_maker.default.context.processor}
 
+  # Битриксовые глобалы - APPLICATION и т.п.
+  Prokl\StaticPageMakerBundle\Services\ContextProcessors\BitrixGlobalsProcessor:
+    class: Prokl\StaticPageMakerBundle\Services\ContextProcessors\BitrixGlobalsProcessor
+    tags:
+      - { name: static_page_maker.default.context.processor}
+
   # Хлебные крошки
   Prokl\StaticPageMakerBundle\Services\ContextProcessors\BreadcrumbsContextProcessor:
     class: Prokl\StaticPageMakerBundle\Services\ContextProcessors\BreadcrumbsContextProcessor
