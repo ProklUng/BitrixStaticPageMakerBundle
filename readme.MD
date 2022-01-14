@@ -25,6 +25,7 @@ simple_static_page:
   defaults:
     # Шаблон
     template:  './static/example2.twig'
+    statusCode: 202 # HTTP Status = Accepted
     # Контекст, передаваемый Твигу для рендеринга страницы.
     context:
       # Препроцессоры контекста.
